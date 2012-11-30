@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>jQuery.disable() plugin version 1.1 demo</title>
+<meta charset="utf-8" />
+<meta name="Author" content="Andreas Nylin" />
+<meta name="description" content="">
+<meta name="keywords" content="jquery,plugin,disable">
+<style>
+
+body {
+	font: 14px/1.3 sans-serif;
+	color: #333;
+	margin: 20px 120px;
+}
+
+pre {
+	background: #eee;
+	font-size: 13px;
+	padding: 10px;
+	overflow: auto;
+}
+
+#an {
+	position: fixed;
+	top: 20px;
+	left: 20px;
+	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEIAAAAgCAYAAACmaK65AAAACXBIWXMAAAsTAAALEwEAmpwYAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAACqUlEQVR42mI0NjZmIBKoAbEtENsDsTIQSwExHxAzM5APDgBxAIl6xKDucABiLSCWAWIhqDs+AvEzIL4LxAeB+DAQ3yLGUIAAYiFCjTUQZwKxJ9RCagJ+EtSqAHEaEAdBIwIbEARiBSC2AuJYIH4HxNuBeDoQH8VnOEAAMeGREwfiyUC8F4ijaRAIIPCHCDWgmC6App5SPIGADQhB3b4X6hdxXAoBAghXQJgD8S4gzgFidoaBA6DstxyI+4FYmgJz2KF+2QX1GwYACCBsAeEKxGuBWI9hYIE8EK8G4lAqmqkH9ZsrugRAAKEHhAkQL6Aw9KkBhKDusKKB2dJQs02QBQECCDkgRIB4NjQ5DiQAuakXWivQMsvNhvoZDAACCDkgaoHYgGHgQTAQJ9DBHgOon8EAIIBgAWEExKmDIBD4kB1HB5AK9TsDQADBAgJUonIOgoAAFYy6dLSPE+p3BoAAYoI2QHwHQSCAGncxA2AvyO8KAAEECgg75EJjAIESEJsOgL0gv9sBBBATjUtnUoAlEHMPkN0OAAEECgjVQRIQWgNotypAADENgnYDDMgOZFMeIIBAASEwSAJCcADt5gcIICaGwQNYB9JugAACBcT7QRIQ/wfSboAAAgXEc4ZRwAAQQKCAuDUaDAwMAAEECogDo8HAwAAQQKCAOATEr0d6QAAEECggHgLxppEeEAABBKs+pwLxt5EcEAABBAuI80A8ayQHBEAAITeoWoD43EgNCIAAQg6ItwyQEZsnIzEgAAIIvYkNShEJIzEwAAIIW18DNCsUBC03RgwACCBcna7TQOwOxBOB+PtICAiAAMLX+wQ1skBzjk5AvAiI39DAfhYcbLr3PgECiBjLT0AxaPLVhgGyLAA0Mw2aMeIjEJiEwHs09rsBCohPAAEGAAGrSjBQEUFjAAAAAElFTkSuQmCC');
+	display: block;
+    height: 32px;
+    width: 66px;
+}
+
+button {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #ffffff;
+    padding: 8px 12px;
+    background: -moz-linear-gradient(
+        top,
+        #006adb 0%,
+        #00aceb);
+    background: -webkit-gradient(
+        linear, left top, left bottom,
+        from(#006adb),
+        to(#00aceb));
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border: 1px solid #02678c;
+    -moz-box-shadow:
+        0px 1px 3px rgba(000,000,000,0.5),
+        inset 0px 0px 2px rgba(255,255,255,0.5);
+    -webkit-box-shadow:
+        0px 1px 3px rgba(000,000,000,0.5),
+        inset 0px 0px 2px rgba(255,255,255,0.5);
+    text-shadow:
+        0px -1px 0px rgba(000,000,000,0.4),
+        0px 1px 0px rgba(255,255,255,0);
+    cursor: pointer;
+}
+
+button:hover{
+    -moz-box-shadow:
+        0px 1px 3px rgba(000,000,000,0.5),
+        inset 0px 0px 3px rgba(255,255,255,0.8);
+    -webkit-box-shadow:
+        0px 1px 3px rgba(000,000,000,0.5),
+        inset 0px 0px 3px rgba(255,255,255,0.8);
+}
+
+[disabled],
+.disabled {
+    color: #bdbdbd;
+    background: -moz-linear-gradient(
+        top,
+        #ffffff 0%,
+        #c4c4c4);
+    background: -webkit-gradient(
+        linear, left top, left bottom,
+        from(#ffffff),
+        to(#c4c4c4));
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border: 1px solid #b0b0b0;
+    -moz-box-shadow:
+        0px 1px 3px rgba(000,000,000,0.5),
+        inset 0px 0px 2px rgba(255,255,255,0.5);
+    -webkit-box-shadow:
+        0px 1px 3px rgba(000,000,000,0.5),
+        inset 0px 0px 2px rgba(255,255,255,0.5);
+    text-shadow:
+        1px 1px 0px rgba(255,255,255,0.7),
+        0px 1px 0px rgba(255,255,255,0);
+    cursor: default;
+}
+</style>
+<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+<script src="jquery.disable.1.1.js"></script>
+<script>
+$(function() {
+	$('#btn1').disable({ disableClass: 'disabled', enableClass: 'enabled', enableOnAjaxComplete: true, ajaxUrl: 'http://andreasnylin.com' });
+
+	$('#btn2').disable({ enableAfterSeconds: 5 })
+		.click(function() {
+			$.get('http://andreasnylin.com');
+		});
+	$('#btn3')
+	$("#enable-third-button").click(function() {
+		$('#btn3').enable({ enableClass: 'enabled' });
+	});
+});
+</script>
+</head>
+<body>
+
+<header>
+	<a href="http://andreasnylin.com/" id="an"></a>
+	<h1>jQuery.disable() plugin version 1.1</h1>
+</header>
+
+<p>
+This is a plugin that is used to disable form elements. Options can be passed to the disable method to determine when the element should be enabled again.
+</p>
+
+<h2>Demo</h2>
+
+This button will be enabled once you click the button below:<br />
+<button id="btn1">Click me</button>
+
+<br />
+<br />
+
+This button will be enabled in 5 seconds:<br />
+<button id="btn2">Click me</button>
+
+<br />
+<br />
+
+This button will be enabled when you click <a href="#" id="enable-third-button">here</a><br />
+<button id="btn3" disabled>Click me</button>
+
+<h2>Examples:</h2>
+
+<pre>
+// Simple usage - disables the element
+jQuery('#myButton').disable();
+
+// Disable element and set a css class
+jQuery('#myButton').disable({ disableClass: 'disabled' });
+
+// Disable element and enable after X seconds
+jQuery('#myButton').disable({ enableAfterSeconds: 5 });
+
+// Disable element and enable once an AJAX call is completed
+jQuery('#myButton').disable({ enableOnAjaxComplete: true });
+
+// Disable element and enable once an AJAX call is successful
+jQuery('#myButton').disable({ enableOnAjaxSuccess: true });
+
+// Disable element and enable once an AJAX call is successful and returns a specific text
+jQuery('#myButton').disable({ enableOnAjaxSuccess: true, responseText: 'great success' });
+
+// Disable element and enable once an AJAX call is successful and restrict to a specific URL
+jQuery('#myButton').disable({ enableOnAjaxSuccess: true, ajaxUrl: 'http://my.ajax.service/' });
+
+// Simple usage - enables the element
+jQuery('#myButton').enable();
+
+// Enable element and set a css class
+jQuery('#myButton').enable({ enableClass: 'enabled' });
+</pre>
+
+<p>
+Enjoy!
+</p>
+</body>
+</html>
